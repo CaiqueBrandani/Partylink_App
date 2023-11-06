@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:partylink/globals/globals_store/globals_store.dart';
-import 'package:partylink/globals/globals_var.dart';
-import 'package:partylink/globals/globals_widgets.dart';
+import 'package:partylink/globals/globals_components.dart';
 import 'package:partylink/pages/login_screen/login_widget.dart';
 import 'package:provider/provider.dart';
+
+import '../../globals/theme_controller.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -46,20 +47,21 @@ class _LoginPageState extends State<LoginPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: globalsThemeVar.themeColors.primaryBackgroundColor,
+        backgroundColor: globalsThemeVar.themeColors.secondaryBackgroundColor,
         resizeToAvoidBottomInset: true,
         body: Stack(
           children: [
             carregando
-                ? GlobalsWidgets(context).loadingPage(
+                ? GlobalsComponents(context).loadingPage(
                     MediaQuery.of(context).size.height,
                     MediaQuery.of(context).size.width)
-                : LoginWidget(context).loginWidgetPrincipal(context),
+                : 
+                LoginWidget(context).loginWidgetPrincipal(context),
                 
             Observer(builder: (_) {
               return Visibility(
                 visible: globalsStore.loading,
-                child: GlobalsWidgets(context).loadingPage(
+                child: GlobalsComponents(context).loadingPage(
                     MediaQuery.of(context).size.height,
                     MediaQuery.of(context).size.width),
               );

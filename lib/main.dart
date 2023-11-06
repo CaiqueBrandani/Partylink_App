@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:partylink/globals/globals_store/globals_store.dart';
+import 'package:partylink/globals/theme_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'globals/globals_function.dart';
-import 'globals/globals_var.dart';
-import 'globals/globals_widgets.dart';
+import 'globals/globals_components.dart';
 import 'pages/login_screen/login_page.dart';
+import 'pages/login_screen/store/login_store.dart';
 
 void main() {
   runApp(
@@ -20,6 +21,10 @@ void main() {
         // Store
         Provider<GlobalsStore>(
           create: (context) => GlobalsStore(),
+        ),
+
+        Provider<LoginStore>(
+          create: (context) => LoginStore(),
         ),
       ],
       child: const MyApp(),
@@ -47,7 +52,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //late SharedPreferences preferences;
+  late SharedPreferences preferences;
   late GlobalsThemeVar globalsThemeVar;
 
   bool startPage = false;
@@ -65,23 +70,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future _startPage() async {
-    //preferences = await SharedPreferences.getInstance();
+    preferences = await SharedPreferences.getInstance();
     startPage = true;
 
-    await _startTheme();
+    await _setThemeMode();
 
     await Future.delayed(
-      const Duration(seconds: 7),
+      const Duration(seconds: 1),
     );
 
     await _loginApp();
   }
 
-  Future _startTheme() async {
+  Future _setThemeMode() async {
     var brightness =
         SchedulerBinding.instance.platformDispatcher.platformBrightness;
 
-    //final int? temaApp = preferences.getInt('theme');
+    final int? temaApp = preferences.getInt('theme');
 
     if (!mounted) return;
 
@@ -89,16 +94,16 @@ class _MyHomePageState extends State<MyHomePage> {
       globalsThemeVar.currentThemeMode =
           brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light;
 
-      // if (temaApp == null) {
-      //   globalsThemeVar.currentThemeMode =
-      //       brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light;
-      // } else {
-      //   if (temaApp == 0) {
-      //     globalsThemeVar.currentThemeMode = ThemeMode.light;
-      //   } else {
-      //     globalsThemeVar.currentThemeMode = ThemeMode.dark;
-      //   }
-      // }
+      if (temaApp == null) {
+        globalsThemeVar.currentThemeMode =
+            brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light;
+      } else {
+        if (temaApp == 0) {
+          globalsThemeVar.currentThemeMode = ThemeMode.light;
+        } else {
+          globalsThemeVar.currentThemeMode = ThemeMode.dark;
+        }
+      }
 
       globalsThemeVar.setThemeColors();
     });
@@ -110,14 +115,18 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const LoginPage()));
       return;
+    } else {
+      if (!mounted) return;
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const LoginPage()));
+      return;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: globalsThemeVar.themeColors.secondaryBackgroundColor,
-      body: GlobalsWidgets(context).loadingPage(
+      body: GlobalsComponents(context).loadingPage(
         MediaQuery.of(context).size.height,
         MediaQuery.of(context).size.width,
       ), // This trailing comma makes auto-formatting nicer for build methods.
