@@ -9,7 +9,5 @@ class GlobalsFunctions {
     } else {
       return false;
     }
-  }
-
-  
+  } 
 }

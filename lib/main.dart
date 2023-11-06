@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:partylink/globals/globals_store/globals_store.dart';
 import 'package:partylink/globals/theme_controller.dart';
+import 'package:partylink/pages/offline_screen/offline_page.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -114,12 +115,12 @@ class _MyHomePageState extends State<MyHomePage> {
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const LoginPage()));
-      return;
+      // return;
     } else {
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const LoginPage()));
-      return;
+      // return;
     }
   }
 
