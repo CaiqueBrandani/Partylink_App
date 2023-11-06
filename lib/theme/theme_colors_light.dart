@@ -3,35 +3,35 @@ import 'package:partylink/theme/theme_colors.dart';
 
 class ThemeColorsLight implements ThemeColors {
   @override
-  var primaryColor = const Color(0x00fa4a0c);
+  var primaryColor = const Color.fromRGBO(250, 74, 12, 1);
 
   @override
-  var secondaryColor = const Color(0xFFFFFFFF);
+  var secondaryColor = const Color.fromRGBO(255, 255, 255, 1);
 
   @override
-  var tertiaryColor = const Color(0x00C7C7C7);
+  var tertiaryColor = const Color.fromRGBO(199, 199, 199, 1);
 
   @override
-  var transpColor = Colors.white70;
+  var transpColor = Colors.white.withOpacity(0.7);
 
   @override
-  var primaryBackgroundColor = const Color(0x00F6F6F9);
+  var primaryBackgroundColor = const Color.fromRGBO(246, 246, 249, 1);
 
   @override
-  var secondaryBackgroundColor = const Color(0x00F2F2F2);
+  var secondaryBackgroundColor = const Color.fromRGBO(242, 242, 242, 1);
 
   @override
-  var blackTextColor = const Color(0x00000000);
+  var blackTextColor = const Color.fromRGBO(0, 0, 0, 1);
 
   @override
-  var whiteTextColor = const Color(0xFFFFFFFF);
+  var whiteTextColor = const Color.fromRGBO(255, 255, 255, 1);
 
   @override
-  var grayTextColor = const Color(0x009A9A9D);
+  var grayTextColor = const Color.fromRGBO(154, 154, 157, 1);
 
   @override
-  var redDetailColor = const Color(0x00DF2C2C);
+  var redDetailColor = const Color.fromRGBO(223, 44, 44, 1);
 
   @override
-  var shadedColor = const Color(0x3939391a);
+  var shadedColor = const Color.fromRGBO(57, 57, 25, 1);
 }
