@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class GlobalsVars {
   String nomeApp = "PartyLink";
-  final urlApi = "";
+  final urlApi = "https://adlerteste-38ca0ad7ebd1.herokuapp.com/api/v1";
   final linkLojaApps = "";
 }
 

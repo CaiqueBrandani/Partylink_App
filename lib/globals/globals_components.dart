@@ -4,6 +4,7 @@ import 'package:partylink/globals/globals_var.dart';
 import 'package:partylink/globals/theme_controller.dart';
 import 'package:provider/provider.dart';
 
+
 class GlobalsComponents {
   BuildContext context;
   GlobalsComponents(this.context);
@@ -102,7 +103,7 @@ class GlobalsComponents {
     );
   }
 
-  Widget loadingPage(double sizeH, double sizeW) {
+  Widget loadingPage(double sizeH, double sizeW)  {
     final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
 
     return Container(

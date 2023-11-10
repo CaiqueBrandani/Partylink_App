@@ -3,9 +3,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:partylink/globals/globals_store/globals_store.dart';
 import 'package:partylink/globals/globals_var.dart';
 import 'package:partylink/globals/globals_components.dart';
+import 'package:partylink/pages/home_screen/home_page.dart';
+import 'package:partylink/pages/login_screen/login_page.dart';
 import 'package:partylink/pages/login_screen/store/login_store.dart';
+import 'package:partylink/pages/offline_screen/offline_page.dart';
 import 'package:provider/provider.dart';
 
+import '../../globals/globals_function.dart';
 import '../../globals/theme_controller.dart';
 
 class LoginWidget {
@@ -27,8 +31,6 @@ class LoginWidget {
           }
         }),
       ],
-      // height: MediaQuery.of(context).size.height,
-      // width: MediaQuery.of(context).size.width,
     );
   }
 
@@ -165,16 +167,22 @@ class LoginWidget {
         ),
         SizedBox(height: GlobalsSizes().marginSize),
         GlobalsComponents(context).simpleButton(
-          action: () async {
-            globalsStore.setLoading(true);
-
-            await Future.delayed(
-              const Duration(seconds: 1),
-            );
-
-            globalsStore.setLoading(false);
-          },
           buttonText: 'Logar',
+          action: () async {
+            if (await GlobalsFunctions().verificaConexao()) {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const OfflinePage(LoginPage())));
+            } else {
+              globalsStore.setLoading(true);
+
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+
+              //await Future.delayed(const Duration(seconds: 1));
+
+              globalsStore.setLoading(false);
+            }
+          },
         ),
         SizedBox(height: GlobalsSizes().marginSize),
       ]),
@@ -215,16 +223,22 @@ class LoginWidget {
             labelText: 'Senha'),
         SizedBox(height: GlobalsSizes().marginSize),
         GlobalsComponents(context).simpleButton(
-          action: () async {
-            globalsStore.setLoading(true);
-
-            await Future.delayed(
-              const Duration(seconds: 1),
-            );
-
-            globalsStore.setLoading(false);
-          },
           buttonText: 'Registrar-se',
+          action: () async {
+            if (await GlobalsFunctions().verificaConexao()) {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const OfflinePage(LoginPage())));
+            } else {
+              globalsStore.setLoading(true);
+
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+
+              // await Future.delayed(const Duration(seconds: 1));
+
+              globalsStore.setLoading(false);
+            }
+          },
         ),
         SizedBox(height: GlobalsSizes().marginSize),
       ]),

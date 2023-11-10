@@ -33,5 +33,5 @@ class ThemeColorsDark implements ThemeColors {
   var redDetailColor = const Color.fromRGBO(223, 44, 44, 1);
 
   @override
-  var shadedColor = const Color.fromRGBO(57, 57, 25, 1);
+  var shadedColor = const Color.fromRGBO(57, 57, 50, 0.5);
 }
