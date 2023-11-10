@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -56,7 +58,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _screens = [
+    final List<Widget> screens = [
       HomeWidget(context).homeWidgetPrincipal(context),
       NewPageScreen('tela de eventos'),
       //EventsWidget(context).eventWidgetPrincipal(context),
@@ -78,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                     ? GlobalsComponents(context).loadingPage(
                         MediaQuery.of(context).size.height,
                         MediaQuery.of(context).size.width)
-                    : _screens[homeStore.currentIndex],
+                    : screens[homeStore.currentIndex],
                 Observer(
                   builder: (_) {
                     return Visibility(
@@ -93,47 +95,54 @@ class _HomePageState extends State<HomePage> {
             ),
             bottomNavigationBar: Visibility(
               visible: carregando == false,
-              child: BottomNavigationBar(
-                selectedFontSize: 0,
-                unselectedFontSize: 0,
-                currentIndex: homeStore.currentIndex,
-                onTap: homeStore.onTapeChange,
-                backgroundColor:
-                    globalsThemeVar.themeColors.secondaryBackgroundColor,
-                elevation: 0,
-                items: [
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        FontAwesomeIcons.house,
-                        color: globalsThemeVar.themeColors.tertiaryColor,
-                      ),
-                      activeIcon: Icon(
-                        FontAwesomeIcons.house,
-                        color: globalsThemeVar.themeColors.primaryColor,
-                      ),
-                      label: ''),
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        FontAwesomeIcons.calendar,
-                        color: globalsThemeVar.themeColors.tertiaryColor,
-                      ),
-                      activeIcon: Icon(
-                        FontAwesomeIcons.calendar,
-                        color: globalsThemeVar.themeColors.primaryColor,
-                      ),
-                      label: ''),
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        FontAwesomeIcons.clockRotateLeft,
-                        color: globalsThemeVar.themeColors.tertiaryColor,
-                      ),
-                      activeIcon: Icon(
-                        FontAwesomeIcons.clockRotateLeft,
-                        color: globalsThemeVar.themeColors.primaryColor,
-                      ),
-                      label: ''),
-                ],
-              ),
+              child: GlobalsComponents(context).bottomNavigationBar(
+                store: homeStore,
+                firstIcon: FontAwesomeIcons.house,
+                secondIcon: FontAwesomeIcons.calendar,
+                thirtyIcon: FontAwesomeIcons.clockRotateLeft,
+              )
+              
+              // BottomNavigationBar(
+              //   selectedFontSize: 0,
+              //   unselectedFontSize: 0,
+              //   currentIndex: homeStore.currentIndex,
+              //   onTap: homeStore.onTapeChange,
+              //   backgroundColor:
+              //       globalsThemeVar.themeColors.secondaryBackgroundColor,
+              //   elevation: 0,
+              //   items: [
+              //     BottomNavigationBarItem(
+              //         icon: Icon(
+              //           FontAwesomeIcons.house,
+              //           color: globalsThemeVar.themeColors.tertiaryColor,
+              //         ),
+              //         activeIcon: Icon(
+              //           FontAwesomeIcons.house,
+              //           color: globalsThemeVar.themeColors.primaryColor,
+              //         ),
+              //         label: ''),
+              //     BottomNavigationBarItem(
+              //         icon: Icon(
+              //           FontAwesomeIcons.calendar,
+              //           color: globalsThemeVar.themeColors.tertiaryColor,
+              //         ),
+              //         activeIcon: Icon(
+              //           FontAwesomeIcons.calendar,
+              //           color: globalsThemeVar.themeColors.primaryColor,
+              //         ),
+              //         label: ''),
+              //     BottomNavigationBarItem(
+              //         icon: Icon(
+              //           FontAwesomeIcons.clockRotateLeft,
+              //           color: globalsThemeVar.themeColors.tertiaryColor,
+              //         ),
+              //         activeIcon: Icon(
+              //           FontAwesomeIcons.clockRotateLeft,
+              //           color: globalsThemeVar.themeColors.primaryColor,
+              //         ),
+              //         label: ''),
+              //   ],
+              // ),
             ),
           );
         },

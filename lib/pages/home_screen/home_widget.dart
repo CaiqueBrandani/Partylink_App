@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:partylink/globals/globals_var.dart';
-import 'package:partylink/model/product_model.dart';
 import 'package:partylink/pages/home_screen/store/home_store.dart';
 import 'package:provider/provider.dart';
 
