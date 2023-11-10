@@ -38,7 +38,6 @@ abstract class HomeStoreBase with Store {
       for (var i = 0; i < parsed['data'].length; i++) {
         try {
           Category category = Category.fromJson(parsed['data'][i]);
-          print('${parsed['data'][i]}');
 
           categoryList.add(category);
         } catch (e) {
@@ -59,7 +58,6 @@ abstract class HomeStoreBase with Store {
       for (var i = 0; i < parsed['data'].length; i++) {
         try {
           Product product = Product.fromJson(parsed['data'][i]);
-          print('${parsed['data'][i]}');
 
           productList.add(product);
         } catch (e) {

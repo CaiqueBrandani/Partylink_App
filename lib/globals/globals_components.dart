@@ -4,7 +4,6 @@ import 'package:partylink/globals/globals_var.dart';
 import 'package:partylink/globals/theme_controller.dart';
 import 'package:provider/provider.dart';
 
-
 class GlobalsComponents {
   BuildContext context;
   GlobalsComponents(this.context);
@@ -103,7 +102,7 @@ class GlobalsComponents {
     );
   }
 
-  Widget loadingPage(double sizeH, double sizeW)  {
+  Widget loadingPage(double sizeH, double sizeW) {
     final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
 
     return Container(
@@ -124,7 +123,6 @@ class GlobalsComponents {
 
     return GestureDetector(
       onTap: action,
-
       child: Container(
         height: 70,
         width: buttonWidth ?? double.infinity,
@@ -143,6 +141,55 @@ class GlobalsComponents {
           ),
         ),
       ),
+    );
+  }
+
+  Widget bottomNavigationBar(
+      {required store,
+      required firstIcon,
+      required secondIcon,
+      required thirtyIcon}) {
+    final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
+
+    return BottomNavigationBar(
+      selectedFontSize: 0,
+      unselectedFontSize: 0,
+      currentIndex: store.currentIndex,
+      onTap: store.onTapeChange,
+      backgroundColor: globalsThemeVar.themeColors.secondaryBackgroundColor,
+      elevation: 0,
+      items: [
+        BottomNavigationBarItem(
+            icon: Icon(
+              firstIcon,
+              color: globalsThemeVar.themeColors.tertiaryColor,
+            ),
+            activeIcon: Icon(
+              firstIcon,
+              color: globalsThemeVar.themeColors.primaryColor,
+            ),
+            label: ''),
+        BottomNavigationBarItem(
+            icon: Icon(
+              secondIcon,
+              color: globalsThemeVar.themeColors.tertiaryColor,
+            ),
+            activeIcon: Icon(
+              secondIcon,
+              color: globalsThemeVar.themeColors.primaryColor,
+            ),
+            label: ''),
+        BottomNavigationBarItem(
+            icon: Icon(
+              thirtyIcon,
+              color: globalsThemeVar.themeColors.tertiaryColor,
+            ),
+            activeIcon: Icon(
+              thirtyIcon,
+              color: globalsThemeVar.themeColors.primaryColor,
+            ),
+            label: ''),
+      ],
     );
   }
 }
