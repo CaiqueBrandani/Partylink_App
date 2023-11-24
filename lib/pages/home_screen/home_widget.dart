@@ -332,7 +332,7 @@ class HomeWidget {
                   ),
                   const SizedBox(height: 15),
                   Text(
-                    'R\$ ${product.valor}',
+                    'R\$ ${product.valor} / ${product.medida?.descricao ?? ""}',
                     textAlign: TextAlign.center,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

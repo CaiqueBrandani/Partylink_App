@@ -1,3 +1,5 @@
+import 'package:partylink/model/measure_model.dart';
+
 class Product {
   int? id;
   String? nome;
@@ -7,6 +9,7 @@ class Product {
   int? medidaId;
   int? fornecedorId;
   int? tipos;
+  Measure? medida;
 
   Product(
       {this.id,
@@ -16,7 +19,8 @@ class Product {
       this.categoriaId,
       this.medidaId,
       this.fornecedorId,
-      this.tipos});
+      this.tipos,
+      this.medida});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];

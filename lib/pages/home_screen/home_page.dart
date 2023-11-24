@@ -51,7 +51,10 @@ class _HomePageState extends State<HomePage> {
 
     await HomeFunctions(context).getCategory();
     await HomeFunctions(context).getProduct();
+    await HomeFunctions(context).getMeasure();
     await EventFunctions(context).getEvent();
+
+    homeStore.loadProducts();
 
     if (!mounted) return;
     
