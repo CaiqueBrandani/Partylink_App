@@ -16,6 +16,13 @@ abstract class HomeStoreBase with Store {
   ObservableList<Product> productList = ObservableList<Product>();
   ObservableList<Product> productListAux = ObservableList<Product>();
 
+  List<Product> get filteredProductList {
+    return productList
+        .where((product) =>
+            selectedCategory == null || product.categoriaId == selectedCategory!.id)
+        .toList();
+  }
+
   @observable
   int currentIndex = 0;
 

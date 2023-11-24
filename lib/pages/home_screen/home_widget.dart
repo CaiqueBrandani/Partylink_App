@@ -169,29 +169,6 @@ class HomeWidget {
           onTap: () {
             homeStoreT.toggleSelectedCategory(category);
           },
-          // child: Column(
-          //   children: [
-          //     Center(
-          //       child: Text(
-          //         '${category.descricao}',
-          //         style: TextStyle(
-          //             fontFamily: 'Montserrat',
-          //             fontSize: GlobalsSizes().smallSize,
-          //             color: homeStoreT.selectedCategory == category
-          //                 ? globalsThemeVar.themeColors.primaryColor
-          //                 : globalsThemeVar.themeColors.grayTextColor),
-          //       ),
-          //     ),
-          //     homeStoreT.selectedCategory == category
-          //     ? Container(
-          //         height: 2,
-          //         decoration: BoxDecoration(
-          //           color: globalsThemeVar.themeColors.primaryColor,
-          //         ),
-          //       )
-          //     : Container()
-          //   ],
-          // ),
           child: Container(
             decoration: homeStoreT.selectedCategory == category
                 ? BoxDecoration(
@@ -247,43 +224,71 @@ class HomeWidget {
         SizedBox(
           height: 350,
           child: Observer(builder: (_) {
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: homeStore.productList.length,
-              itemBuilder: (_, index) {
-                if (homeStore.productList[index] ==
-                    homeStore.productList.first) {
-                  return Container(
-                    margin: const EdgeInsets.only(
-                        left: 50, right: 13, top: 13, bottom: 13),
-                    child: _productCard(
-                      context,
-                      homeStore.productList[index],
-                    ),
-                  );
-                } else if (homeStore.productList[index] ==
-                    homeStore.productList.last) {
-                  return Container(
-                    margin: const EdgeInsets.only(
-                        left: 13, right: 50, top: 13, bottom: 13),
-                    child: _productCard(
-                      context,
-                      homeStore.productList[index],
-                    ),
-                  );
-                } else {
-                  return Container(
-                    margin: const EdgeInsets.only(
-                        left: 13, right: 13, top: 13, bottom: 13),
-                    child: _productCard(
-                      context,
-                      homeStore.productList[index],
-                    ),
-                  );
-                }
-              },
-            );
+            if (homeStore.filteredProductList.isEmpty) {
+              return Center(
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: GlobalsSizes().marginSize),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.search_off_outlined,
+                        size: 100,
+                        color: globalsThemeVar.themeColors.grayTextColor,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Nenhum produto disponível para a categoria selecionada.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          color: globalsThemeVar.themeColors.grayTextColor,
+                          fontSize: GlobalsSizes().smallSize,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            } else {
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: homeStore.filteredProductList.length,
+                itemBuilder: (_, index) {
+                  if (homeStore.filteredProductList[index] ==
+                      homeStore.filteredProductList.first) {
+                    return Container(
+                      margin: const EdgeInsets.only(
+                          left: 50, right: 13, top: 13, bottom: 13),
+                      child: _productCard(
+                        context,
+                        homeStore.filteredProductList[index],
+                      ),
+                    );
+                  } else if (homeStore.filteredProductList[index] ==
+                      homeStore.filteredProductList.last) {
+                    return Container(
+                      margin: const EdgeInsets.only(
+                          left: 13, right: 50, top: 13, bottom: 13),
+                      child: _productCard(
+                        context,
+                        homeStore.filteredProductList[index],
+                      ),
+                    );
+                  } else {
+                    return Container(
+                      margin: const EdgeInsets.only(
+                          left: 13, right: 13, top: 13, bottom: 13),
+                      child: _productCard(
+                        context,
+                        homeStore.filteredProductList[index],
+                      ),
+                    );
+                  }
+                },
+              );
+            }
           }),
         )
       ],
@@ -353,83 +358,4 @@ class HomeWidget {
       ),
     );
   }
-
-  // Widget drawerHome() {
-  //   final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
-  //   return Drawer(
-  //     backgroundColor: globalsThemeVar.themeColors.primaryColor,
-  //     child: Column(
-  //       children: [
-  //         const SizedBox(height: 100),
-  //         optionsDrawer(),
-  //         dividerDrawer(),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget dividerDrawer() {
-  //   final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
-  //   return Divider(
-  //     height: 20,
-  //     thickness: 0.5,
-  //     color: globalsThemeVar.themeColors.secondaryColor,
-  //     indent: 32,
-  //     endIndent: 32,
-  //   );
-  // }
-
-  // Widget botaoDrawer(icone, String titulo, onPressed) {
-  //   final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
-  //   return Container(
-  //     padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-  //     margin: const EdgeInsets.only(left: 20, right: 20, bottom: 3),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       children: <Widget>[
-  //         Expanded(
-  //           child: TextButton(
-  //             onPressed: onPressed,
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.start,
-  //               children: <Widget>[
-  //                 Icon(
-  //                   icone,
-  //                   color: globalsThemeVar.themeColors.secondaryColor,
-  //                   size: 20,
-  //                 ),
-  //                 const SizedBox(width: 25),
-  //                 Text(
-  //                   titulo,
-  //                   textAlign: TextAlign.start,
-  //                   style: TextStyle(
-  //                     color: globalsThemeVar.themeColors.secondaryColor,
-  //                     fontWeight: FontWeight.bold,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget optionsDrawer() {
-  //   return Column(
-  //     children: [
-  //       botaoDrawer(FontAwesomeIcons.fileCirclePlus, "Emitir ordem de serviço",
-  //           () {
-  //         print('serviço');
-  //       }),
-  //       botaoDrawer(FontAwesomeIcons.listCheck, "Produção Diária", () {
-  //         print('produção');
-  //       }),
-  //       botaoDrawer(FontAwesomeIcons.xmark, "Sair", () async {
-  //         print('sair');
-  //       }),
-  //     ],
-  //   );
-  // }
 }
