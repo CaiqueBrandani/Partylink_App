@@ -7,14 +7,17 @@ import 'package:partylink/pages/home_screen/store/home_store.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
+import '../../globals/globals_store/globals_store.dart';
+
 class HomeFunctions {
   BuildContext context;
   HomeFunctions(this.context);
 
   Future getCategory() async {
     final homeStore = Provider.of<HomeStore>(context);
+    final globalsStore = Provider.of<GlobalsStore>(context);
 
-    homeStore.setLoading(true);
+    globalsStore.setLoading(true);
 
     if (!(await GlobalsFunctions().verificaConexao())) {
       try {
@@ -25,18 +28,19 @@ class HomeFunctions {
         homeStore.addCategoryList(request.body);
 
       } catch (e) {
-        log("ERRO GET ORDEM >> $e");
+        log("ERRO GET CATEGORY >> $e");
       }
     } else {
-      homeStore.setLoading(false);
+      globalsStore.setLoading(false);
     }
-    homeStore.setLoading(false);
+    globalsStore.setLoading(false);
   }
 
   Future getProduct() async {
     final homeStore = Provider.of<HomeStore>(context, listen: false);
+    final globalsStore = Provider.of<GlobalsStore>(context, listen: false);
 
-    homeStore.setLoading(true);
+    globalsStore.setLoading(true);
 
     if (!(await GlobalsFunctions().verificaConexao())) {
       try {
@@ -47,17 +51,13 @@ class HomeFunctions {
         homeStore.addProductList(request.body);
         
       } catch (e) {
-        log("ERRO GET ORDEM >> $e");
+        log("ERRO GET PRODUCT >> $e");
       }
     } else {
-      homeStore.setLoading(false);
+      globalsStore.setLoading(false);
     }
-    homeStore.setLoading(false);
+    globalsStore.setLoading(false);
   }
 
   Future homeFunctionsPrincipal() async {}
-
-  // void openDrawer(GlobalKey<ScaffoldState> scaffoldKey) {
-  //   scaffoldKey.currentState?.openDrawer();
-  // }
 }

@@ -17,9 +17,6 @@ abstract class HomeStoreBase with Store {
   ObservableList<Product> productListAux = ObservableList<Product>();
 
   @observable
-  bool loading = false;
-
-  @observable
   int currentIndex = 0;
 
   @observable
@@ -79,9 +76,6 @@ abstract class HomeStoreBase with Store {
       selectedCategory = category;
     }
   }
-
-  @action
-  setLoading(value) => loading = value;
 
   @action
   onTapeChange(index) => currentIndex = index;

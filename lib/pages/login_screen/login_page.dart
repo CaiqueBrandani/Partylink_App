@@ -18,7 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   late GlobalsThemeVar globalsThemeVar;
   late GlobalsStore globalsStore;
 
-  bool carregando = true;
   bool entrouIniciaPage = false;
 
   @override
@@ -38,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (!mounted) return;
     setState(() {
-      carregando = false;
+      globalsStore.loading = false;
     });
   }
 
@@ -51,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
         resizeToAvoidBottomInset: true,
         body: Stack(
           children: [
-            carregando
+            globalsStore.loading
                 ? GlobalsComponents(context).loadingPage(
                     MediaQuery.of(context).size.height,
                     MediaQuery.of(context).size.width)
