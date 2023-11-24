@@ -13,7 +13,7 @@ class GlobalsStyles {
 
 class GlobalsSizes {
   final double borderSize = 30;
-  final double marginSize = 50;
+  final double marginSize = 30;
 
   final bigSize = 30.0;
   final mediumSize = 22.0;

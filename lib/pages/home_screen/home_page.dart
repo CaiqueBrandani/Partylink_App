@@ -5,6 +5,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:partylink/globals/globals_store/globals_store.dart';
 import 'package:partylink/globals/globals_components.dart';
+import 'package:partylink/pages/event_screen/event_function.dart';
+import 'package:partylink/pages/event_screen/event_page.dart';
+import 'package:partylink/pages/event_screen/event_widget.dart';
 import 'package:partylink/pages/home_screen/home_function.dart';
 import 'package:partylink/pages/home_screen/home_widget.dart';
 import 'package:partylink/pages/home_screen/screen_test.dart';
@@ -28,7 +31,6 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>(debugLabel: "scaffoldKey");
 
-  bool carregando = true;
   bool entrouIniciaPage = false;
 
   @override
@@ -49,10 +51,12 @@ class _HomePageState extends State<HomePage> {
 
     await HomeFunctions(context).getCategory();
     await HomeFunctions(context).getProduct();
+    await EventFunctions(context).getEvent();
 
     if (!mounted) return;
+    
     setState(() {
-      carregando = false;
+      globalsStore.loading = false;
     });
   }
 
@@ -60,7 +64,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final List<Widget> screens = [
       HomeWidget(context).homeWidgetPrincipal(context),
-      NewPageScreen('tela de eventos'),
+      EventWidget(context).eventWidgetPrincipal(context),
+      // EventPage(),
       //EventsWidget(context).eventWidgetPrincipal(context),
       NewPageScreen('tela de recentes'),
       //ProfileWidget(context).profileWidgetPrincipal(context),
@@ -76,73 +81,33 @@ class _HomePageState extends State<HomePage> {
             resizeToAvoidBottomInset: true,
             body: Stack(
               children: [
-                carregando
+                globalsStore.loading
                     ? GlobalsComponents(context).loadingPage(
                         MediaQuery.of(context).size.height,
-                        MediaQuery.of(context).size.width)
+                        MediaQuery.of(context).size.width,
+                      )
                     : screens[homeStore.currentIndex],
                 Observer(
                   builder: (_) {
                     return Visibility(
                       visible: globalsStore.loading,
                       child: GlobalsComponents(context).loadingPage(
-                          MediaQuery.of(context).size.height,
-                          MediaQuery.of(context).size.width),
+                        MediaQuery.of(context).size.height,
+                        MediaQuery.of(context).size.width,
+                      ),
                     );
                   },
                 ),
               ],
             ),
             bottomNavigationBar: Visibility(
-              visible: carregando == false,
+              visible: globalsStore.loading == false,
               child: GlobalsComponents(context).bottomNavigationBar(
                 store: homeStore,
                 firstIcon: FontAwesomeIcons.house,
                 secondIcon: FontAwesomeIcons.calendar,
                 thirtyIcon: FontAwesomeIcons.clockRotateLeft,
-              )
-              
-              // BottomNavigationBar(
-              //   selectedFontSize: 0,
-              //   unselectedFontSize: 0,
-              //   currentIndex: homeStore.currentIndex,
-              //   onTap: homeStore.onTapeChange,
-              //   backgroundColor:
-              //       globalsThemeVar.themeColors.secondaryBackgroundColor,
-              //   elevation: 0,
-              //   items: [
-              //     BottomNavigationBarItem(
-              //         icon: Icon(
-              //           FontAwesomeIcons.house,
-              //           color: globalsThemeVar.themeColors.tertiaryColor,
-              //         ),
-              //         activeIcon: Icon(
-              //           FontAwesomeIcons.house,
-              //           color: globalsThemeVar.themeColors.primaryColor,
-              //         ),
-              //         label: ''),
-              //     BottomNavigationBarItem(
-              //         icon: Icon(
-              //           FontAwesomeIcons.calendar,
-              //           color: globalsThemeVar.themeColors.tertiaryColor,
-              //         ),
-              //         activeIcon: Icon(
-              //           FontAwesomeIcons.calendar,
-              //           color: globalsThemeVar.themeColors.primaryColor,
-              //         ),
-              //         label: ''),
-              //     BottomNavigationBarItem(
-              //         icon: Icon(
-              //           FontAwesomeIcons.clockRotateLeft,
-              //           color: globalsThemeVar.themeColors.tertiaryColor,
-              //         ),
-              //         activeIcon: Icon(
-              //           FontAwesomeIcons.clockRotateLeft,
-              //           color: globalsThemeVar.themeColors.primaryColor,
-              //         ),
-              //         label: ''),
-              //   ],
-              // ),
+              ),
             ),
           );
         },

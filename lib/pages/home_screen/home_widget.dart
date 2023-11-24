@@ -20,7 +20,7 @@ class HomeWidget {
           const SizedBox(height: 40),
           _searchField(context),
           const SizedBox(height: 40),
-          _productFilter(context),
+          _categoryList(context),
           const SizedBox(height: 30),
           _productList(context),
         ],
@@ -119,7 +119,7 @@ class HomeWidget {
     );
   }
 
-  Widget _productFilter(context) {
+  Widget _categoryList(context) {
     final homeStore = Provider.of<HomeStore>(context, listen: true);
 
     return Observer(
