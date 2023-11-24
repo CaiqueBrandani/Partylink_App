@@ -59,5 +59,28 @@ class HomeFunctions {
     globalsStore.setLoading(false);
   }
 
+  Future getMeasure() async {
+    final homeStore = Provider.of<HomeStore>(context, listen: false);
+    final globalsStore = Provider.of<GlobalsStore>(context, listen: false);
+
+    globalsStore.setLoading(true);
+
+    if (!(await GlobalsFunctions().verificaConexao())) {
+      try {
+        var request = await http.get(
+          Uri.parse('${GlobalsVars().urlApi}/medidas'),
+        );
+
+        homeStore.addMeasureList(request.body);
+        
+      } catch (e) {
+        log("ERRO GET MEASURE >> $e");
+      }
+    } else {
+      globalsStore.setLoading(false);
+    }
+    globalsStore.setLoading(false);
+  }
+
   Future homeFunctionsPrincipal() async {}
 }

@@ -83,6 +83,17 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
+  void addMeasureList(dynamic value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.addMeasureList');
+    try {
+      return super.addMeasureList(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setSelectedCategory(Category category) {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
         name: 'HomeStoreBase.setSelectedCategory');
