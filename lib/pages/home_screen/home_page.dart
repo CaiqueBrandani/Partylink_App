@@ -6,11 +6,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:partylink/globals/globals_store/globals_store.dart';
 import 'package:partylink/globals/globals_components.dart';
 import 'package:partylink/pages/event_screen/event_function.dart';
-import 'package:partylink/pages/event_screen/event_page.dart';
 import 'package:partylink/pages/event_screen/event_widget.dart';
 import 'package:partylink/pages/home_screen/home_function.dart';
 import 'package:partylink/pages/home_screen/home_widget.dart';
-import 'package:partylink/pages/home_screen/screen_test.dart';
+import 'package:partylink/pages/perfil_screen/profile_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../globals/theme_controller.dart';
@@ -68,10 +67,7 @@ class _HomePageState extends State<HomePage> {
     final List<Widget> screens = [
       HomeWidget(context).homeWidgetPrincipal(context),
       EventWidget(context).eventWidgetPrincipal(context),
-      // EventPage(),
-      //EventsWidget(context).eventWidgetPrincipal(context),
-      NewPageScreen('tela de recentes'),
-      //ProfileWidget(context).profileWidgetPrincipal(context),
+      ProfileWidget(context).profileWidgetPrincipal(context),
     ];
 
     return MaterialApp(
@@ -109,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                 store: homeStore,
                 firstIcon: FontAwesomeIcons.house,
                 secondIcon: FontAwesomeIcons.calendar,
-                thirtyIcon: FontAwesomeIcons.clockRotateLeft,
+                thirtyIcon: FontAwesomeIcons.user,
               ),
             ),
           );

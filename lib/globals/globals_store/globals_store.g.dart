@@ -25,6 +25,21 @@ mixin _$GlobalsStore on GlobalsStoreBase, Store {
     });
   }
 
+  late final _$userAtom = Atom(name: 'GlobalsStoreBase.user', context: context);
+
+  @override
+  User? get user {
+    _$userAtom.reportRead();
+    return super.user;
+  }
+
+  @override
+  set user(User? value) {
+    _$userAtom.reportWrite(value, super.user, () {
+      super.user = value;
+    });
+  }
+
   late final _$GlobalsStoreBaseActionController =
       ActionController(name: 'GlobalsStoreBase', context: context);
 
@@ -40,9 +55,21 @@ mixin _$GlobalsStore on GlobalsStoreBase, Store {
   }
 
   @override
+  void setUser(dynamic value) {
+    final _$actionInfo = _$GlobalsStoreBaseActionController.startAction(
+        name: 'GlobalsStoreBase.setUser');
+    try {
+      return super.setUser(value);
+    } finally {
+      _$GlobalsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-loading: ${loading}
+loading: ${loading},
+user: ${user}
     ''';
   }
 }

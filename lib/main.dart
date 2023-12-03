@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:partylink/globals/globals_store/globals_store.dart';
 import 'package:partylink/globals/theme_controller.dart';
+import 'package:partylink/model/user_model.dart';
 import 'package:partylink/pages/event_screen/store/event_store.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,7 +36,12 @@ void main() {
 
         Provider<EventStore>(
           create: (context) => EventStore(),
-        )
+        ),
+
+
+        Provider<User>(
+        create: (context) => User(),
+      ),
       ],
       child: const MyApp(),
     ),

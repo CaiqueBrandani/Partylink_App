@@ -25,7 +25,7 @@ abstract class EventStoreBase with Store {
 
           eventList.add(event);
         } catch (e) {
-          log('ERRO AO ADICIONAR PRODUTO >>> $e');
+          log('ERRO AO ADICIONAR EVENTO >>> $e');
         }
       }
       eventListAux.addAll(eventList);
