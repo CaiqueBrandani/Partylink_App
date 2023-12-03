@@ -259,8 +259,8 @@ class HomeWidget {
                   if (homeStore.filteredProductList[index] ==
                       homeStore.filteredProductList.first) {
                     return Container(
-                      margin: const EdgeInsets.only(
-                          left: 50, right: 13, top: 13, bottom: 13),
+                      margin: EdgeInsets.only(
+                          left: GlobalsSizes().marginSize, right: 13, top: 13, bottom: 13),
                       child: _productCard(
                         context,
                         homeStore.filteredProductList[index],
@@ -269,8 +269,8 @@ class HomeWidget {
                   } else if (homeStore.filteredProductList[index] ==
                       homeStore.filteredProductList.last) {
                     return Container(
-                      margin: const EdgeInsets.only(
-                          left: 13, right: 50, top: 13, bottom: 13),
+                      margin: EdgeInsets.only(
+                          left: 13, right: GlobalsSizes().marginSize, top: 13, bottom: 13),
                       child: _productCard(
                         context,
                         homeStore.filteredProductList[index],

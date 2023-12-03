@@ -144,6 +144,22 @@ mixin _$LoginStore on LoginStoreBase, Store {
     });
   }
 
+  late final _$jsonLoginAtom =
+      Atom(name: 'LoginStoreBase.jsonLogin', context: context);
+
+  @override
+  Map<String, dynamic> get jsonLogin {
+    _$jsonLoginAtom.reportRead();
+    return super.jsonLogin;
+  }
+
+  @override
+  set jsonLogin(Map<String, dynamic> value) {
+    _$jsonLoginAtom.reportWrite(value, super.jsonLogin, () {
+      super.jsonLogin = value;
+    });
+  }
+
   late final _$LoginStoreBaseActionController =
       ActionController(name: 'LoginStoreBase', context: context);
 
@@ -159,6 +175,17 @@ mixin _$LoginStore on LoginStoreBase, Store {
   }
 
   @override
+  dynamic setLogin(dynamic jsonBody, dynamic jsonResponse) {
+    final _$actionInfo = _$LoginStoreBaseActionController.startAction(
+        name: 'LoginStoreBase.setLogin');
+    try {
+      return super.setLogin(jsonBody, jsonResponse);
+    } finally {
+      _$LoginStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 loginControllerEmail: ${loginControllerEmail},
@@ -168,7 +195,8 @@ registerControllerEmail: ${registerControllerEmail},
 registerControllerPhone: ${registerControllerPhone},
 registerControllerAddress: ${registerControllerAddress},
 registerControllerPassword: ${registerControllerPassword},
-hasLogin: ${hasLogin}
+hasLogin: ${hasLogin},
+jsonLogin: ${jsonLogin}
     ''';
   }
 }

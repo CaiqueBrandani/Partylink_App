@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:partylink/globals/globals_components.dart';
+import 'package:partylink/globals/globals_function.dart';
 import 'package:partylink/globals/globals_var.dart';
 import 'package:partylink/pages/event_screen/store/event_store.dart';
-import 'package:partylink/pages/home_screen/home_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../globals/theme_controller.dart';
@@ -15,12 +15,16 @@ class EventWidget {
 
   Widget eventWidgetPrincipal(BuildContext context) {
     return SafeArea(
-      child: ListView(children: [
-        const SizedBox(height: 30),
-        _appBar(context),
-        const SizedBox(height: 30),
-        _widgetBody(context),
-      ]),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+          const SizedBox(height: 30),
+          _appBar(context),
+          const SizedBox(height: 20),
+          _widgetBody(context),
+        ]),
+      ),
     );
   }
 
@@ -42,7 +46,6 @@ class EventWidget {
     if (eventStore.eventList.isEmpty) {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: GlobalsSizes().marginSize),
-        height: MediaQuery.of(context).size.height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -63,6 +66,7 @@ class EventWidget {
           builder: (_) {
             return ListView.builder(
               scrollDirection: Axis.vertical,
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: eventStore.eventList.length,
               itemBuilder: (_, index) {
@@ -82,15 +86,15 @@ class EventWidget {
     final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
 
     return Container(
-      height: 180,
-      width: double.infinity,
+      height: 220,
       decoration: BoxDecoration(
         color: globalsThemeVar.themeColors.secondaryColor,
         borderRadius: BorderRadius.all(
           Radius.circular(GlobalsSizes().borderSize),
         ),
       ),
-      margin: EdgeInsets.symmetric(horizontal: GlobalsSizes().marginSize),
+      margin: EdgeInsets.symmetric(
+          horizontal: GlobalsSizes().marginSize, vertical: 10),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: GlobalsSizes().marginSize),
         child: Column(
@@ -107,8 +111,35 @@ class EventWidget {
                     fontSize: GlobalsSizes().smallSize,
                   ),
                 ),
+                Expanded(
+                  child: Text(
+                    '${event.nome}',
+                    // 'Caralho',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: globalsThemeVar.themeColors.blackTextColor,
+                      fontFamily: 'Montserrat',
+                      fontSize: GlobalsSizes().smallSize,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
                 Text(
-                  '${event.nome}',
+                  'Data: ',
+                  style: TextStyle(
+                    color: globalsThemeVar.themeColors.primaryColor,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: GlobalsSizes().smallSize,
+                  ),
+                ),
+                Text(
+                  GlobalsFunctions().desconvertData(event.data),
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: globalsThemeVar.themeColors.blackTextColor,
@@ -122,7 +153,7 @@ class EventWidget {
             Row(
               children: [
                 Text(
-                  'Descrição: ',
+                  'Itens Totais: ',
                   style: TextStyle(
                     color: globalsThemeVar.themeColors.primaryColor,
                     fontFamily: 'Montserrat',
@@ -131,13 +162,53 @@ class EventWidget {
                   ),
                 ),
                 Text(
-                  '${event.descricao}',
+                  '${event.pedidos.length} itens',
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                   style: TextStyle(
                     color: globalsThemeVar.themeColors.blackTextColor,
                     fontFamily: 'Montserrat',
                     fontSize: GlobalsSizes().smallSize,
                   ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Text(
+                  'Status: ',
+                  style: TextStyle(
+                    color: globalsThemeVar.themeColors.primaryColor,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: GlobalsSizes().smallSize,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '${event.status}',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: globalsThemeVar.themeColors.blackTextColor,
+                        fontFamily: 'Montserrat',
+                        fontSize: GlobalsSizes().smallSize,
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    Icon(
+                      event.status == 'Confirmado'
+                      ? FontAwesomeIcons.solidCircleCheck
+                      : FontAwesomeIcons.circleExclamation,
+                      color: event.status == 'Confirmado' 
+                      ? Colors.green
+                      : Colors.amber,
+                      
+                      size: 10,
+                    ),
+                  ],
                 ),
               ],
             ),

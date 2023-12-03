@@ -22,7 +22,7 @@ class EventFunctions {
     if (!(await GlobalsFunctions().verificaConexao())) {
       try {
         var request = await http.get(
-          Uri.parse('${GlobalsVars().urlApi}/eventos?cliente_id[eq]=2'),
+          Uri.parse('${GlobalsVars().urlApi}/eventos?cliente_id[eq]=1'),
         );
 
         eventStore.addEventList(request.body);
