@@ -188,9 +188,8 @@ class GlobalsComponents {
     );
   }
 
-  Widget appBarIconTexto(contextAux,
-      {
-      String text = '',
+  Widget appBarIconText(contextAux,
+      {String text = '',
       Color? textColor,
       VoidCallback? onTapPrefix,
       Color? colorIconPrefix,
@@ -200,31 +199,40 @@ class GlobalsComponents {
       IconData? iconSufix}) {
     final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
 
-    return Row(
-      children: [
-        const SizedBox(width: 25),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Text(
-                  text,
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    color:
-                        textColor ?? globalsThemeVar.themeColors.blackTextColor,
-                    fontSize: GlobalsSizes().smallSize,
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          iconPrefix != null
+          ? iconAppBarWidget(
+              colorIcon: colorIconPrefix, icon: iconPrefix, onTap: onTapPrefix)
+          : const SizedBox(width: 35),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: textColor ??
+                          globalsThemeVar.themeColors.blackTextColor,
+                      fontSize: GlobalsSizes().smallSize,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        prefixIconWidget(
-            colorIcon: colorIconSufix, icon: iconSufix, onTap: onTapSufix),
-      ],
+          iconSufix != null
+          ? iconAppBarWidget(
+              colorIcon: colorIconSufix, icon: iconSufix, onTap: onTapSufix)
+          : const SizedBox(width: 35),
+        ],
+      ),
     );
   }
 
@@ -244,21 +252,22 @@ class GlobalsComponents {
         ));
   }
 
-  Widget prefixIconWidget(
+  Widget iconAppBarWidget(
       {VoidCallback? onTap, Color? colorIcon, IconData? icon}) {
     final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
     return GestureDetector(
         onTap: onTap,
         child: Container(
-          height: 38,
-          width: 38,
+          height: 35,
+          width: 35,
           padding: const EdgeInsets.all(7),
           child: icon == null
               ? Container()
               : Icon(
                   icon,
-                  color: colorIcon ??
-                      globalsThemeVar.themeColors.blackTextColor,
+                  color:
+                      colorIcon ?? globalsThemeVar.themeColors.blackTextColor,
+                  size: 20,
                 ),
         ));
   }

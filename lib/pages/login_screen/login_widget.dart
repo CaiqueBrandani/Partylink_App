@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:partylink/controllers/user_infos.dart';
 import 'package:partylink/globals/globals_store/globals_store.dart';
 import 'package:partylink/globals/globals_var.dart';
 import 'package:partylink/globals/globals_components.dart';
-import 'package:partylink/model/user_model.dart';
 import 'package:partylink/pages/home_screen/home_page.dart';
-import 'package:partylink/pages/login_screen/login_function.dart';
 import 'package:partylink/pages/login_screen/login_page.dart';
 import 'package:partylink/pages/login_screen/store/login_store.dart';
-import 'package:partylink/pages/offline_screen/offline_page.dart';
+import 'package:partylink/globals/offline_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../globals/globals_function.dart';

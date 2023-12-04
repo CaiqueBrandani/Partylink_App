@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:partylink/globals/globals_components.dart';
-import 'package:partylink/globals/globals_store/globals_store.dart';
 import 'package:partylink/globals/globals_var.dart';
 import 'package:partylink/globals/theme_controller.dart';
 import 'package:partylink/pages/home_screen/home_page.dart';
@@ -14,9 +13,7 @@ class ProfileWidget {
   Widget profileWidgetPrincipal(BuildContext context) {
     return SafeArea(
       child: ListView(children: [
-        const SizedBox(height: 30),
         _appBar(context),
-        const SizedBox(height: 30),
         _widgetBody(context),
       ]),
     );
@@ -25,7 +22,7 @@ class ProfileWidget {
   Widget _appBar(context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: GlobalsSizes().marginSize),
-      child: GlobalsComponents(context).appBarIconTexto(
+      child: GlobalsComponents(context).appBarIconText(
         context,
         text: 'Perfil do Usuário',
       ),
@@ -34,7 +31,6 @@ class ProfileWidget {
 
   Widget _widgetBody(context) {
     final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
-    // final globalsStore = Provider.of<GlobalsStore>(context, listen: false);
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal: GlobalsSizes().marginSize),
@@ -142,13 +138,13 @@ class ProfileWidget {
             ),
           ),
           const SizedBox(height: 20),
-          _redirectionButton(context, 'Pedidos', HomePage()),
+          _redirectionButton(context, 'Pedidos', const HomePage()),
           const SizedBox(height: 20),
-          _redirectionButton(context, 'Método de Pagamento', HomePage()),
+          _redirectionButton(context, 'Método de Pagamento', const HomePage()),
           const SizedBox(height: 20),
-          _redirectionButton(context, 'Perguntas Frequentes', HomePage()),
+          _redirectionButton(context, 'Perguntas Frequentes', const HomePage()),
           const SizedBox(height: 20),
-          _redirectionButton(context, 'Ajuda', HomePage()),
+          _redirectionButton(context, 'Ajuda', const HomePage()),
           const SizedBox(height: 20),
         ],
       ),
@@ -200,7 +196,7 @@ class ProfileWidget {
               Icon(
                 FontAwesomeIcons.chevronRight,
                 color: globalsThemeVar.themeColors.blackTextColor,
-                size: 24,
+                size: 15,
               ),
             ],
           ),

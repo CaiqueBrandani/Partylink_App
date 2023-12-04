@@ -9,7 +9,7 @@ import 'package:partylink/pages/event_screen/event_function.dart';
 import 'package:partylink/pages/event_screen/event_widget.dart';
 import 'package:partylink/pages/home_screen/home_function.dart';
 import 'package:partylink/pages/home_screen/home_widget.dart';
-import 'package:partylink/pages/perfil_screen/profile_widget.dart';
+import 'package:partylink/pages/profile_screen/profile_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../globals/theme_controller.dart';

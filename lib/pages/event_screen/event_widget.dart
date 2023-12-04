@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:partylink/globals/globals_components.dart';
 import 'package:partylink/globals/globals_function.dart';
 import 'package:partylink/globals/globals_var.dart';
+import 'package:partylink/pages/event_details_screen/event_details_page.dart';
+import 'package:partylink/pages/event_details_screen/store/event_details_store.dart';
 import 'package:partylink/pages/event_screen/store/event_store.dart';
 import 'package:provider/provider.dart';
 
@@ -16,12 +18,8 @@ class EventWidget {
   Widget eventWidgetPrincipal(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-          const SizedBox(height: 30),
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           _appBar(context),
-          const SizedBox(height: 20),
           _widgetBody(context),
         ]),
       ),
@@ -31,7 +29,7 @@ class EventWidget {
   Widget _appBar(context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: GlobalsSizes().marginSize),
-      child: GlobalsComponents(context).appBarIconTexto(
+      child: GlobalsComponents(context).appBarIconText(
         context,
         text: 'Eventos Criados',
         iconSufix: FontAwesomeIcons.plus,
@@ -84,6 +82,7 @@ class EventWidget {
 
   Widget _eventCard(context, event) {
     final globalsThemeVar = Provider.of<GlobalsThemeVar>(context);
+    final eventDetailsStoreT = Provider.of<EventDetailsStore>(context, listen: true);
 
     return Container(
       height: 220,
@@ -200,12 +199,11 @@ class EventWidget {
                     const SizedBox(width: 5),
                     Icon(
                       event.status == 'Confirmado'
-                      ? FontAwesomeIcons.solidCircleCheck
-                      : FontAwesomeIcons.circleExclamation,
-                      color: event.status == 'Confirmado' 
-                      ? Colors.green
-                      : Colors.amber,
-                      
+                          ? FontAwesomeIcons.solidCircleCheck
+                          : FontAwesomeIcons.circleExclamation,
+                      color: event.status == 'Confirmado'
+                          ? Colors.green
+                          : Colors.amber,
                       size: 10,
                     ),
                   ],
@@ -214,7 +212,14 @@ class EventWidget {
             ),
             const SizedBox(height: 20),
             GlobalsComponents(context).simpleButton(
-                action: () {}, buttonText: 'Detalhes', buttonWidth: 150.0)
+                action: () {
+                  eventDetailsStoreT.setEventSelec(event);
+
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const EventDetailsPage()));
+                },
+                buttonText: 'Detalhes',
+                buttonWidth: 150.0)
           ],
         ),
       ),

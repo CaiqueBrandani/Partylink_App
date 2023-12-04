@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:partylink/globals/globals_components.dart';
 import 'package:provider/provider.dart';
 
-import '../../globals/globals_var.dart';
-import '../../globals/theme_controller.dart';
+import 'globals_var.dart';
+import 'theme_controller.dart';
 
 class OfflinePage extends StatelessWidget {
   const OfflinePage(this._navigation, {super.key});
